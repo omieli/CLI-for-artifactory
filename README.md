@@ -12,3 +12,4 @@ Commands:
 - Create Repository
 - List repositories
 
+**To start the CLI, run main.py**
