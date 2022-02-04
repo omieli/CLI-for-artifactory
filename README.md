@@ -4,11 +4,11 @@ via its API.
 
 With this CLI you can give basic commands to Jfrog artifactory.
 Commands:
-- 1.Check state of Artifactory system
-- 2.Get Artifactory system version
-- 3.Create new user
-- 4.Delete existing user
-- 5.Get storage informatoin
-- 6.Create Repository
-- 7.List repositories
+- Check state of Artifactory system
+- Get Artifactory system version
+- Create new user
+- Delete existing user
+- Get storage informatoin
+- Create Repository
+- List repositories
 
