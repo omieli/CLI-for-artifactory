@@ -1,6 +1,7 @@
 import json
 import requests
 from requests.structures import CaseInsensitiveDict
+
 # set up headers for request
 headers = CaseInsensitiveDict()
 headers["Accept"] = "application/json"
@@ -15,22 +16,26 @@ def storageInfo():
     respSTR = json.loads(resp.text)
     print(json.dumps(respSTR,indent=4, sort_keys=True))
 
-#create reposotory - error
+#create reposotory with PUT request
+#create repo type:"remote" still have errors
 def createRepo():
     repoKey = input('Enter repository key: ')
     rclass = input('Select class (local, remote, virtual or federated): ')
-    url = 'https://omieli.jfrog.io/artifactory/api/repositories/'+repoKey
-    data = {"key":repoKey,"rclass":rclass}
-    resp = requests.put(url, headers=headers, json=data)
-    if resp.status_code != 200:
-        respSTR = json.loads(resp.text)
-        print(respSTR["errors"])
+    print('maven|gradle|ivy|sbt|helm|cargo |cocoapods|opkg|rpm|nuget|cran|gems|npm|bower|debian|composer|pypi|docker|vagrant|gitlfs|go|yum|conan|chef|pub|puppet|generic')
+    packType = input('Select package type from the list above: ')
+    if rclass == "remote":
+        repoURL = input("Enter reposetory URL: ")
+        data = {"key":repoKey,"rclass":rclass,"packageType":"docker","url":repoURL}
     else:
-        print(resp)
+        data = {"key":repoKey,"rclass":rclass,"packageType":"docker"}
+    url = 'https://omieli.jfrog.io/artifactory/api/repositories/'+repoKey
+    headers["Accept"] = "text/plain"
+    resp = requests.put(url, headers=headers, json=data)
+    print(resp.text)
 
 # request GET of all the repos availvable
 def listRepos():
-    url = 'https://omieli.jfrog.io/artifactory/api/repositories/'
+    url = 'https://omieli.jfrog.io/artifactory/api/repositories'
     resp = requests.get(url, headers=headers)
     if resp.status_code != 200:
         respSTR = json.loads(resp.text)
@@ -38,18 +43,5 @@ def listRepos():
     else:
         print(resp.text)
 
-#update reposotory - error
-def updateRepo():
-    listRepos()
-    repoKey = input('Enter repository key: ')
-    rclass = input('Select class (local, remote, virtual or federated): ')
-    url = 'https://omieli.jfrog.io/artifactory/api/repositories/'+repoKey+'-H'
-    data = {"key":repoKey,"rclass":rclass}
-    resp = requests.post(url, headers=headers, json=data)
-    if resp.status_code != 200:
-        respSTR = json.loads(resp.text)
-        print(respSTR["errors"])
-    else:
-        print(resp)
 
 

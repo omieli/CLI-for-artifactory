@@ -5,12 +5,12 @@ while 1:
     print("********** Artifactory Managment **********")
     print("1.Login")
     print("2.Exit")
-    ch = int(input("Enter your choice: "))
-    if ch == 0:
+    ch = input("Enter your choice: ")
+    if ch == '0':
         signup()
-    elif ch == 1:
+    elif ch == '1':
         login()
-    elif ch == 2:
+    elif ch == '2':
         break
     else:
         print("Wrong Choice!")

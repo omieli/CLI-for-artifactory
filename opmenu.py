@@ -1,6 +1,6 @@
 from system import systeminfo,systemping
 from users import createUser, deleteUser
-from stoRepo import listRepos, createRepo, updateRepo, storageInfo
+from stoRepo import listRepos, createRepo, storageInfo
 
 
 def opmenu():
@@ -15,9 +15,8 @@ def opmenu():
         print("4.Delete existing user")
         print("5.Get storage informatoin")
         print("6.Create Repository")
-        print("7.Update repository")
-        print("8.List repositories")
-        print("9.Exit")
+        print("7.List repositories")
+        print("8.Exit")
         ac = input("Enter You choice: ")
         if ac == '1':
             systemping()
@@ -32,8 +31,6 @@ def opmenu():
         elif ac == '6':
             createRepo()
         elif ac == '7':
-            updateRepo()
-        elif ac == '8':
             listRepos()
-        elif ac == '9':
+        elif ac == '8':
             break
