@@ -10,14 +10,18 @@ headers["Content-Type"] = "application/json"
 
 # get storage information with GET request
 # print the the output sorted and readable
+
+
 def storageInfo():
     url = 'https://omieli.jfrog.io/artifactory/api/storageinfo'
     resp = requests.get(url, headers=headers)
     respSTR = json.loads(resp.text)
-    print(json.dumps(respSTR,indent=4, sort_keys=True))
+    print(json.dumps(respSTR, indent=4, sort_keys=True))
 
-#create reposotory with PUT request
-#create repo type:"remote" still have errors
+# create reposotory with PUT request
+# create repo type:"remote" still have errors
+
+
 def createRepo():
     repoKey = input('Enter repository key: ')
     rclass = input('Select class (local, remote, virtual or federated): ')
@@ -25,23 +29,24 @@ def createRepo():
     packType = input('Select package type from the list above: ')
     if rclass == "remote":
         repoURL = input("Enter reposetory URL: ")
-        data = {"key":repoKey,"rclass":rclass,"packageType":"docker","url":repoURL}
+        data = {"key": repoKey, "rclass": rclass,
+                "packageType": "docker", "url": repoURL}
     else:
-        data = {"key":repoKey,"rclass":rclass,"packageType":"docker"}
+        data = {"key": repoKey, "rclass": rclass, "packageType": "docker"}
     url = 'https://omieli.jfrog.io/artifactory/api/repositories/'+repoKey
     headers["Accept"] = "text/plain"
     resp = requests.put(url, headers=headers, json=data)
     print(resp.text)
 
 # request GET of all the repos availvable
+
+
 def listRepos():
     url = 'https://omieli.jfrog.io/artifactory/api/repositories'
+    headers["Accept"] = "application/json"
     resp = requests.get(url, headers=headers)
     if resp.status_code != 200:
         respSTR = json.loads(resp.text)
         print(respSTR["errors"])
     else:
         print(resp.text)
-
-
-
